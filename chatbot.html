@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chatbot</title>
+  </head>
+
+  <body>
+    <div class="js-container"></div>
+
+    <!--
+      Component = a piece of the website
+
+      Fragments <> </> are used to group multiple elements
+      without adding an extra div.
+
+      Props are used to pass data to components,
+      making components reusable.
+    -->
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+    <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+
+    <script type="text/babel">
+
+      // Chat input component
+      //event object is passed to the event handler function when the event occurs
+      function ChatInput() {
+        const [inputText, setInputText] = React.useState('');
+        function saveInputText(event) {
+          setInputText(event.target.value);
+        }
+        function sendMessage() {
+          setChatMessages([...chatMessages, {
+            message: 'This is a new message',
+            sender: 'user',
+            id: crypto.randomUUID()
+          }
+          ]);
+        }
+        return (
+          <>
+            <input
+              placeholder="Send a message to Chatbot"
+              size="30"
+              onChange ={saveInputText}
+            />
+            <button
+              onClick={sendMessage}
+            >
+              Send
+            </button>
+          </>
+        );
+      }
+
+
+      // Chat message component
+      function ChatMessage({ message, sender }) {
+
+        return (
+          <div>
+
+            {sender === 'bot' && (
+              <img
+                src="robot.png"
+                width="50"
+              />
+            )}
+
+            {message}
+
+            {sender === 'user' && (
+              <img
+                src="user1.png"
+                width="50"
+              />
+            )}
+
+          </div>
+        );
+      }
+      
+      function ChatMessages() {
+        const [chatMessages, setChatMessages] = React.useState([{
+          
+            message: 'hello chatbot',
+            sender: 'user',
+            id: 'id1'
+          },
+
+          {
+            message: 'Hello! How can I help you?',
+            sender: 'bot',
+            id: 'id2'
+          },
+
+          {
+            message: 'can you give me todays date',
+            sender: 'user',
+            id: 'id3'
+          },
+
+          {
+            message: 'Today is September 27',
+            sender: 'bot',
+            id: 'id4'
+          }]);
+
+        // IMPORTANT:
+        // Variable name is chatMessages
+        // and we use the same name below.
+        // save the data in a variable 
+        // {} object group the related value together
+        // generate this created data into html
+        //chatMessages is an array of objects, each object has a message and a sender
+        // need to give key in each object to avoid warning in console
+        //event handler run a function when we interact with a website 
+        //how to convert the const into state
+          
+/* 
+onclick lets us run a function inside button
+onclick is known as the event and 
+sendMessage is the event handler that runs when the button is clicked
+event props start with on and should use camel case 
+.push is used to add a new item to the end of an array
+crypto.randomUUID() generates a unique id for each message
+state = data that is connected to the html
+when we update the data it will update the html
+
+ */     //Array destructuring 
+
+        //const [chatMessages, setChatMessages] = array;
+        // function to update the state of chatMessages when the button is clicked and automatically craete html  
+        // in react we use a copy of the original array to update the state instead of modifying the original array directly create copy using [...chatMessages, newMessage]
+        return (
+          <>
+              {chatMessages.map((chatMessage) => {
+
+                return (
+                  <ChatMessage
+                    message={chatMessage.message}
+                    sender={chatMessage.sender}
+                    key={chatMessage.id}
+                  />
+                );
+              })}
+            </>
+          );
+      }
+
+      // Main App component
+      function App() {
+        // .map() creates a ChatMessage component
+        // for every item in chatMessages
+        return (
+          <>
+            <ChatInput />
+            <ChatMessages />
+          </>
+        );
+      }
+
+
+      // Find the HTML container
+      const container = document.querySelector('.js-container');
+
+
+      // Render React application
+      ReactDOM.createRoot(container).render(<App />);
+
+    </script>
+  </body>
+</html>
+
+
+<!--
+//how to get the text from the text input 
+/* Normal javascript uses
+const input = document.querySelector('input');
+const text = input.value;
+*/ --->

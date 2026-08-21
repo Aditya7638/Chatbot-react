@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Basics</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+    <!-- External library is a code outside of our computer , code that someone else wrote 
+    <script src ="https://unpkg.com/supersimpledev@8.6.4/external-library.js"></script> -->
+
+    <!-- Below 2 src are used to import the react external library in our code 
+     React consist of shared features which can be used for both website and mobile while 
+     Rect doms is specifically used for websites  -->
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+    <!-- Babel used to translate the other languages into js as using react we use advanced version of javascript known as jsx javascript XML can write html directly into our javscript -->
+
+    <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+
+      const button = <button>Good job!</button>;
+      const paragraph = <p>My name is Simon</p>;
+      const button2 = document.createElement('button');
+      button2.innerHTML ='bye';
+
+      const div = (
+        <div>
+          <p>Cotton socks</p>
+          <p>Price:$10</p>
+          <button>Add to Cart</button>
+          console.log(26);
+
+        </div>
+      );
+      const productCost = 10+8*2;
+      const shippingCost = 5;
+
+      const paragraph1 = <p>Product Cost: ${productCost}</p>
+      const date = <p>Today date is  {dayjs().format('MMMM D')} </p>
+
+
+      const div1 = (
+        <div>
+            <p> Product cost: ${productCost}</p>
+            <p> Shipping cost: ${shippingCost}</p>
+            <p> Total cost: ${productCost+shippingCost}</p>
+        </div>
+      )
+      const time = <p>Current time: {dayjs().format('HH:mm:ss')} </p>
+      
+      // Used for setup react document.queryselector is used to html element and put it in javascript DOM binds the html and js together
+      const container = document.querySelector('.js-container');
+      // Used to setup the react as get  the container and render is used to display something 
+      const root =ReactDOM.createRoot(container);
+      root.render(time);
+
+      setInterval(() => {
+        const time = <p>Current time: {dayjs().format('HH:mm:ss')}</p>;
+        root.render(time);
+      }, 1000); 
+    </script>
+  </body>
+</html>
