@@ -27,7 +27,7 @@ export function HomePage() {
                 </div>
 
                 <div className="product-price">
-                    $10.90
+                    ₹10.90
                 </div>
 
                 <div className="product-quantity-container">
@@ -76,7 +76,7 @@ export function HomePage() {
                 </div>
 
                 <div className="product-price">
-                    $20.95
+                    ₹20.95
                 </div>
 
                 <div className="product-quantity-container">
@@ -125,7 +125,7 @@ export function HomePage() {
                 </div>
 
                 <div className="product-price">
-                    $7.99
+                    ₹7.99
                 </div>
 
                 <div className="product-quantity-container">

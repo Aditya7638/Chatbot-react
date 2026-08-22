@@ -27,7 +27,7 @@
       const div = (
         <div>
           <p>Cotton socks</p>
-          <p>Price:$10</p>
+          <p>Price:₹10</p>
           <button>Add to Cart</button>
           console.log(26);
 
@@ -36,15 +36,15 @@
       const productCost = 10+8*2;
       const shippingCost = 5;
 
-      const paragraph1 = <p>Product Cost: ${productCost}</p>
+      const paragraph1 = <p>Product Cost: ₹{productCost}</p>
       const date = <p>Today date is  {dayjs().format('MMMM D')} </p>
 
 
       const div1 = (
         <div>
-            <p> Product cost: ${productCost}</p>
-            <p> Shipping cost: ${shippingCost}</p>
-            <p> Total cost: ${productCost+shippingCost}</p>
+            <p> Product cost: ₹{productCost}</p>
+            <p> Shipping cost: ₹{shippingCost}</p>
+            <p> Total cost: ₹{productCost+shippingCost}</p>
         </div>
       )
       const time = <p>Current time: {dayjs().format('HH:mm:ss')} </p>
