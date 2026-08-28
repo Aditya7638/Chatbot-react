@@ -7,11 +7,11 @@
   {
     "id": "2",
     "deliveryDays": 3,
-    "priceCents": 99
+    "priceCents": 248
   },
   {
     "id": "3",
     "deliveryDays": 1,
-    "priceCents": 199
+    "priceCents": 373
   }
 ]
