@@ -4,40 +4,33 @@ import "./CheckoutPage.css";
 import { useState, useEffect } from "react";
 import { formatMoney } from "../../utils/money";
 import { CheckoutHeader } from "./CheckoutHeader";
-export function CheckoutPage({ cart, setCart }) {
+export function CheckoutPage({ cart, loadCart }) {
   const [deliveryOptions, setDeliveryOptions] = useState([]);
   const [paymentSummary, setPaymentSummary] = useState(null);
-
-  function handleDeliveryOptionChange(productId, deliveryOptionId) {
-    axios
-      .put(`/api/cart-items/${productId}`, { deliveryOptionId })
-      .then(() => {
-        setCart((currentCart) =>
-          currentCart.map((cartItem) =>
-            cartItem.productId === productId
-              ? { ...cartItem, deliveryOptionId }
-              : cartItem,
-          ),
-        );
-        return axios.get("/api/payment-summary");
-      })
-      .then((response) => {
-        setPaymentSummary(response.data);
-      });
+  
+  const updateDeliveryOption = async (productId, deliveryOptionId) => {
+    await axios.put(`/api/cart-items/${productId}`, {
+      deliveryOptionId: deliveryOptionId
+    });
+    await loadCart();
   }
 
   useEffect(() => {
     const fetchCheckoutData =  async () => {
-      let response = await axios
+      const response = await axios
         .get("/api/delivery-options?expand=estimatedDeliveryTime");
           setDeliveryOptions(response.data);
-
-
-      response = await axios.get("./api/payment-summary");
-        setPaymentSummary(response.data);
     };
     fetchCheckoutData();
   }, []);
+
+  useEffect(() => {
+    const refreshCheckout = async () => {
+      const response = await axios.get("./api/payment-summary");
+        setPaymentSummary(response.data);
+    };
+    refreshCheckout();
+  }, [cart]);
   return (
     <>
       <title>Checkout</title>
@@ -107,6 +100,13 @@ export function CheckoutPage({ cart, setCart }) {
                             <div
                               key={deliveryOption.id}
                               className="delivery-option"
+                              onClick={() =>
+                                updateDeliveryOption(
+                                  cartItem.productId,
+                                  deliveryOption.id,
+                                )
+                              }
+                              style={{ cursor: 'pointer' }}
                             >
                               <input
                                 type="radio"
@@ -114,12 +114,7 @@ export function CheckoutPage({ cart, setCart }) {
                                   deliveryOption.id ===
                                   cartItem.deliveryOptionId
                                 }
-                                onChange={() =>
-                                  handleDeliveryOptionChange(
-                                    cartItem.productId,
-                                    deliveryOption.id,
-                                  )
-                                }
+                                onChange = {() => {}}
                                 className="delivery-option-input"
                                 name={`delivery-option-${cartItem.productId}`}
                               />
