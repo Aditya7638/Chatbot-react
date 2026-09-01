@@ -28,6 +28,7 @@ function App() {
         element={<CheckoutPage cart={cart} setCart={setCart} loadCart={loadCart}/>}
       />
       <Route path="tracking" element={<TrackingPage />} />
+      <Route path="tracking/:orderId" element={<TrackingPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
